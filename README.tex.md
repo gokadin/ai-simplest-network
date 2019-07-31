@@ -27,3 +27,5 @@ $$ f(x) = \frac{1}{1 + e^{-x}} $$
 - tanh
 
 $$ f(x) = tanh(x) $$
+
+## Learning
