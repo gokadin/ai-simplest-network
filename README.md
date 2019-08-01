@@ -1,6 +1,6 @@
-# ai-linear-associative-network
+# Linear associative networks
 
-This is the simplest neural network possible. 
+This is the simplest artifical neural network possible. 
 
 ## Overview
 
@@ -30,26 +30,7 @@ For example, if we wanted to get an expected output of <img src="/tex/ad35a4143e
 
 <p align="center"><img src="/tex/70587273e97df3ceb21ab1b1987c0c58.svg?invert_in_darkmode&sanitize=true" align=middle width=198.69622905pt height=14.611878599999999pt/></p>
 
-and we would need to adjust the weights in order to rectify that error. In our example, lowering <img src="/tex/f7eb0e840408d84a0c156d6efb611f3e.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> from <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> to <img src="/tex/cde2d598001a947a6afd044a43d15629.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> would do the trick, since 
+and we would need to adjust the weights in order to rectify that error. In our example, lowering <img src="/tex/4b4518f1b7f0fb1347fa21506ebafb19.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> from <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> to <img src="/tex/cde2d598001a947a6afd044a43d15629.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> would do the trick, since 
 <p align="center"><img src="/tex/e6f831d1a270623d0d7f7ed67ad50360.svg?invert_in_darkmode&sanitize=true" align=middle width=243.73618499999998pt height=13.789957499999998pt/></p>
 
 However, in order to adjust the weights of our neural networks for many different inputs and expected outputs, we need a *learning algorithm*. 
-
-## Activation function
-
-Normally a perceptron processes its inputs through an activation function in order to normalise it's output. 
-
-Examples of activation functions are:
-- ReLU or rectified linear unit
-
-<p align="center"><img src="/tex/3959b939e17b3c21d8589ea174a0fbfa.svg?invert_in_darkmode&sanitize=true" align=middle width=124.13822189999999pt height=16.438356pt/></p>
-
-- Sigmoid
-
-<p align="center"><img src="/tex/05ea2a27ecacfef18e873fcdafa3c70f.svg?invert_in_darkmode&sanitize=true" align=middle width=110.4028497pt height=34.3600389pt/></p>
-
-- tanh
-
-<p align="center"><img src="/tex/d7eb28cd142819e76d9f4c6df635ee71.svg?invert_in_darkmode&sanitize=true" align=middle width=110.05912829999998pt height=16.438356pt/></p>
-
-## Learning
