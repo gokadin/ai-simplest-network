@@ -1,6 +1,6 @@
-# ai-linear-associative-network
+# Linear associative networks
 
-This is the simplest neural network possible. 
+This is the simplest artifical neural network possible. 
 
 ## Overview
 
@@ -30,26 +30,7 @@ For example, if we wanted to get an expected output of $y\prime = 0.5$ then we w
 
 $$ \delta = y - y\prime = 0.6 - 0.5 = 0.1$$
 
-and we would need to adjust the weights in order to rectify that error. In our example, lowering $w_2$ from $1.0$ to $0.5$ would do the trick, since 
+and we would need to adjust the weights in order to rectify that error. In our example, lowering $w_1$ from $1.0$ to $0.5$ would do the trick, since 
 $$ y = y\prime = 0.2 * 0.5 + 0.4 * 1.0 = 0.5 $$
 
 However, in order to adjust the weights of our neural networks for many different inputs and expected outputs, we need a *learning algorithm*. 
-
-## Activation function
-
-Normally a perceptron processes its inputs through an activation function in order to normalise it's output. 
-
-Examples of activation functions are:
-- ReLU or rectified linear unit
-
-$$ f(x) = max(0, x) $$
-
-- Sigmoid
-
-$$ f(x) = \frac{1}{1 + e^{-x}} $$
-
-- tanh
-
-$$ f(x) = tanh(x) $$
-
-## Learning
