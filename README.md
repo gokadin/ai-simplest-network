@@ -2,6 +2,12 @@
 
 This is the simplest artifical neural network possible. 
 
+## Table of Contents
+* [Overview](#overview)  
+  * [What is a perceptron?](#what-is-a-perceptron)
+  * [A simple example](#a-simple-example)
+  * [The error](#the-error)
+
 ## Overview
 
 ### What is a perceptron?
