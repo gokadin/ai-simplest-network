@@ -36,7 +36,15 @@ For example, if we wanted to get an expected output of <img src="/tex/ad35a4143e
 
 <p align="center"><img src="/tex/70587273e97df3ceb21ab1b1987c0c58.svg?invert_in_darkmode&sanitize=true" align=middle width=198.69622905pt height=14.611878599999999pt/></p>
 
-and we would need to adjust the weights in order to rectify that error. In our example, lowering <img src="/tex/4b4518f1b7f0fb1347fa21506ebafb19.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> from <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> to <img src="/tex/cde2d598001a947a6afd044a43d15629.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> would do the trick, since 
+The most common way to measure the error is to use the square difference:
+
+<p align="center"><img src="/tex/f0e1879eb6ad7c4d4db82b272cf354b4.svg?invert_in_darkmode&sanitize=true" align=middle width=157.79689199999999pt height=32.990165999999995pt/></p>
+
+If we would have multiple sets of inputs and multiple sets of expected outputs, then the error becomes the sum of each set. 
+
+<p align="center"><img src="/tex/77f183b19e630e3e06818fc4bd43e135.svg?invert_in_darkmode&sanitize=true" align=middle width=223.27059314999997pt height=44.89738935pt/></p>
+
+To rectify the error, we would need to adjust the weights in a way that the actual output matches the expected output. In our example, lowering <img src="/tex/4b4518f1b7f0fb1347fa21506ebafb19.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> from <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> to <img src="/tex/cde2d598001a947a6afd044a43d15629.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> would do the trick, since 
 <p align="center"><img src="/tex/e6f831d1a270623d0d7f7ed67ad50360.svg?invert_in_darkmode&sanitize=true" align=middle width=243.73618499999998pt height=13.789957499999998pt/></p>
 
 However, in order to adjust the weights of our neural networks for many different inputs and expected outputs, we need a *learning algorithm*. 
