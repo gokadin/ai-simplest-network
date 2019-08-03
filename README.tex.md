@@ -51,7 +51,7 @@ $$ y = y\prime = 0.2 * 0.5 + 0.4 * 1.0 = 0.5 $$
 
 However, in order to adjust the weights of our neural networks for many different inputs and expected outputs, we need a *learning algorithm*. 
 
-### Enter gradient descent
+### Gradient descent
 
 The idea is to use the error in order to find how to adjust each weight so that the error is minimized.  
 
