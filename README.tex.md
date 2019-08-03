@@ -36,7 +36,15 @@ For example, if we wanted to get an expected output of $y\prime = 0.5$ then we w
 
 $$ \delta = y - y\prime = 0.6 - 0.5 = 0.1$$
 
-and we would need to adjust the weights in order to rectify that error. In our example, lowering $w_1$ from $1.0$ to $0.5$ would do the trick, since 
+The most common way to measure the error is to use the square difference:
+
+$$ E = \frac{1}{2} (y - y\prime)^2 = \frac{1}{2} \delta^2 $$
+
+If we would have multiple sets of inputs and multiple sets of expected outputs, then the error becomes the sum of each set. 
+
+$$ E = \frac{1}{2} \sum_{i=1}^n (y_i - y_i\prime)^2 = \frac{1}{2} \sum_{i=1}^n \delta_i^2 $$
+
+To rectify the error, we would need to adjust the weights in a way that the actual output matches the expected output. In our example, lowering $w_1$ from $1.0$ to $0.5$ would do the trick, since 
 $$ y = y\prime = 0.2 * 0.5 + 0.4 * 1.0 = 0.5 $$
 
 However, in order to adjust the weights of our neural networks for many different inputs and expected outputs, we need a *learning algorithm*. 
