@@ -1,12 +1,13 @@
 # Linear associative networks
 
-This is the simplest artifical neural network possible. 
+This is the simplest artificial neural network possible. 
 
 ## Table of Contents
-* [Overview](#overview)  
-  * [What is a perceptron?](#what-is-a-perceptron)
-  * [A simple example](#a-simple-example)
-  * [The error](#the-error)
+
+- [Overview](#overview)  
+  - [What is a perceptron?](#what-is-a-perceptron)
+  - [A simple example](#a-simple-example)
+  - [The error](#the-error)
 
 ## Overview
 
@@ -48,3 +49,25 @@ To rectify the error, we would need to adjust the weights in a way that the actu
 <p align="center"><img src="/tex/e6f831d1a270623d0d7f7ed67ad50360.svg?invert_in_darkmode&sanitize=true" align=middle width=243.73618499999998pt height=13.789957499999998pt/></p>
 
 However, in order to adjust the weights of our neural networks for many different inputs and expected outputs, we need a *learning algorithm*. 
+
+### Enter gradient descent
+
+The idea is to use the error in order to find how to adjust each weight so that the error is minimized.  
+
+##### What is a gradient?
+
+It's essentially a vector pointing to the direction of the steepest ascent of a function. The gradient is denoted <img src="/tex/47c28f1929c18f887420345e9225e08b.svg?invert_in_darkmode&sanitize=true" align=middle width=13.69867124999999pt height=22.465723500000017pt/> and is simply the partial derivative of each variable of a function expressed as a vector.  
+
+Example for a two variable function:
+
+<p align="center"><img src="/tex/e5f984d37b9b6ead18f6d4f697635a9c.svg?invert_in_darkmode&sanitize=true" align=middle width=301.02020849999997pt height=37.9216761pt/></p>
+
+##### What is gradient descent?
+
+The *descent* part simply means using the gradient to find the direction of steepest ascent of our function and then going in the opposite direction by a *small* amount many times to find the function *minimum*.  
+
+We use a constant called the *learning rate*, denoted <img src="/tex/7ccca27b5ccc533a2dd72dc6fa28ed84.svg?invert_in_darkmode&sanitize=true" align=middle width=6.672392099999992pt height=14.15524440000002pt/>, to define how small of a step to take in that direction.  
+
+If <img src="/tex/7ccca27b5ccc533a2dd72dc6fa28ed84.svg?invert_in_darkmode&sanitize=true" align=middle width=6.672392099999992pt height=14.15524440000002pt/> is too large, then we risk overshooting the function minimum. 
+
+![alt text](readme-images/gradient-descent.jpg)
