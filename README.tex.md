@@ -8,6 +8,7 @@ This is the simplest artificial neural network possible.
   - [What is a perceptron?](#what-is-a-perceptron)
   - [A simple example](#a-simple-example)
   - [The error](#the-error)
+  - [Gradient descent](#gradient-descent)
 
 ## Overview
 
@@ -71,3 +72,23 @@ We use a constant called the *learning rate*, denoted $\epsilon$, to define how 
 If $\epsilon$ is too large, then we risk overshooting the function minimum. 
 
 ![alt text](readme-images/gradient-descent.jpg)
+
+##### Gradient descent applied to our example
+
+For our two weights $w_1$ and $w_2$ we need to find the gradient of those weights with respect to the error function $E$  
+
+$$ \frac{\partial E}{\partial w_1} = \delta x $$
+
+and
+
+$$ \frac{\partial E}{\partial w_2} = \delta x $$
+
+which we can write as
+
+$$ \nabla_w E = \bigl \langle \frac{\partial E}{\partial w_1}, \frac{\partial E}{\partial w_2} \bigl \rangle $$
+
+Once we have the gradient, we can update our weights
+
+$$ w = w - \epsilon \nabla E $$
+
+And we repeat this process until the error is approximately $0$. 
