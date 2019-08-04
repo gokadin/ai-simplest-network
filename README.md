@@ -2,15 +2,22 @@
 
 This is the simplest artificial neural network possible. 
 
+## This is **part 1** of a series of github repos on neural networks
+
+- part 1 - linear associative networks (**you are here**)
+- part 2 - TBD...
+
 ## Table of Contents
 
-- [Overview](#overview)  
+- [Theory](#theory)  
   - [What is a perceptron?](#what-is-a-perceptron)
   - [A simple example](#a-simple-example)
   - [The error](#the-error)
   - [Gradient descent](#gradient-descent)
+- [Code example](#code-example)
+- [References](#references)
 
-## Overview
+## Theory
 
 ### What is a perceptron?
 
@@ -24,7 +31,9 @@ At the simplest level, the perceptron's output is the sum of it's inputs times i
 
 ### A simple example
 
-Say we have a perceptron with two inputs <img src="/tex/f9b6dcc9279f659321ac3e1098b0ba4f.svg?invert_in_darkmode&sanitize=true" align=middle width=59.69172164999999pt height=21.18721440000001pt/> and <img src="/tex/bf84a893effff44b6d014b2b60460585.svg?invert_in_darkmode&sanitize=true" align=middle width=59.69172164999999pt height=21.18721440000001pt/>, with weights <img src="/tex/a4d0b18eae0e483561b7109b3e60efab.svg?invert_in_darkmode&sanitize=true" align=middle width=62.06524169999999pt height=21.18721440000001pt/> and <img src="/tex/b069935a7e85d35a3a6cfdb368977f8e.svg?invert_in_darkmode&sanitize=true" align=middle width=62.06524169999999pt height=21.18721440000001pt/>.  
+Say we have a perceptron with two inputs <img src="/tex/f9b6dcc9279f659321ac3e1098b0ba4f.svg?invert_in_darkmode&sanitize=true" align=middle width=59.69172164999999pt height=21.18721440000001pt/> and <img src="/tex/bf84a893effff44b6d014b2b60460585.svg?invert_in_darkmode&sanitize=true" align=middle width=59.69172164999999pt height=21.18721440000001pt/> and two weights <img src="/tex/4b4518f1b7f0fb1347fa21506ebafb19.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> and <img src="/tex/f7eb0e840408d84a0c156d6efb611f3e.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/>.  
+
+Weights are normally initialized randomly since we can't know their optimal value ahead of time, however for simplicity we will initialize them both with <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/>. 
 
 ![alt text](readme-images/perceptron-example.jpg)
 
@@ -57,7 +66,7 @@ The idea is to use the error in order to find how to adjust each weight so that 
 
 ##### What is a gradient?
 
-It's essentially a vector pointing to the direction of the steepest ascent of a function. The gradient is denoted <img src="/tex/47c28f1929c18f887420345e9225e08b.svg?invert_in_darkmode&sanitize=true" align=middle width=13.69867124999999pt height=22.465723500000017pt/> and is simply the partial derivative of each variable of a function expressed as a vector.  
+It's essentially a vector pointing to the direction of the steepest ascent of a function. The gradient is denoted with <img src="/tex/47c28f1929c18f887420345e9225e08b.svg?invert_in_darkmode&sanitize=true" align=middle width=13.69867124999999pt height=22.465723500000017pt/> and is simply the partial derivative of each variable of a function expressed as a vector.  
 
 Example for a two variable function:
 
@@ -67,19 +76,19 @@ Example for a two variable function:
 
 The *descent* part simply means using the gradient to find the direction of steepest ascent of our function and then going in the opposite direction by a *small* amount many times to find the function *minimum*.  
 
-We use a constant called the *learning rate*, denoted <img src="/tex/7ccca27b5ccc533a2dd72dc6fa28ed84.svg?invert_in_darkmode&sanitize=true" align=middle width=6.672392099999992pt height=14.15524440000002pt/>, to define how small of a step to take in that direction.  
+We use a constant called the **learning rate**, denoted with <img src="/tex/7ccca27b5ccc533a2dd72dc6fa28ed84.svg?invert_in_darkmode&sanitize=true" align=middle width=6.672392099999992pt height=14.15524440000002pt/> to define how small of a step to take in that direction.  
 
 If <img src="/tex/7ccca27b5ccc533a2dd72dc6fa28ed84.svg?invert_in_darkmode&sanitize=true" align=middle width=6.672392099999992pt height=14.15524440000002pt/> is too large, then we risk overshooting the function minimum. 
 
 ![alt text](readme-images/gradient-descent.jpg)
 
-##### Gradient descent applied to our example
+##### Gradient descent applied to our example network
 
 For our two weights <img src="/tex/4b4518f1b7f0fb1347fa21506ebafb19.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> and <img src="/tex/f7eb0e840408d84a0c156d6efb611f3e.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> we need to find the gradient of those weights with respect to the error function <img src="/tex/84df98c65d88c6adf15d4645ffa25e47.svg?invert_in_darkmode&sanitize=true" align=middle width=13.08219659999999pt height=22.465723500000017pt/>  
 
 <p align="center"><img src="/tex/ecdd6eea717403f28ce36c7f4feddb87.svg?invert_in_darkmode&sanitize=true" align=middle width=215.8816407pt height=36.2778141pt/></p>
 
-which we can write as
+which we can write as a vector
 
 <p align="center"><img src="/tex/912be46ac0db99c8544f0800527d4b9f.svg?invert_in_darkmode&sanitize=true" align=middle width=147.62782815pt height=36.2778141pt/></p>
 
@@ -89,3 +98,12 @@ Once we have the gradient, we can update our weights
 
 And we repeat this process until the error is approximately <img src="/tex/29632a9bf827ce0200454dd32fc3be82.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/>. 
 
+## Code example
+
+The included example teaches the following dataset representing the XOR operation to a neural network with two inputs and one output using gradient descent:
+
+<p align="center"><img src="/tex/ce72d812872ec19857b71904c3f3e5f2.svg?invert_in_darkmode&sanitize=true" align=middle width=383.295594pt height=39.452455349999994pt/></p>
+
+## References
+
+- Artificial intelligence engines by James V Stone (2019)
