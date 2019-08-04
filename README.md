@@ -61,7 +61,7 @@ It's essentially a vector pointing to the direction of the steepest ascent of a 
 
 Example for a two variable function:
 
-<p align="center"><img src="/tex/e5f984d37b9b6ead18f6d4f697635a9c.svg?invert_in_darkmode&sanitize=true" align=middle width=301.02020849999997pt height=37.9216761pt/></p>
+<p align="center"><img src="/tex/b142e84f3f77e6dc3144eb723cd4510d.svg?invert_in_darkmode&sanitize=true" align=middle width=303.75993285pt height=37.9216761pt/></p>
 
 ##### What is gradient descent?
 
@@ -77,11 +77,7 @@ If <img src="/tex/7ccca27b5ccc533a2dd72dc6fa28ed84.svg?invert_in_darkmode&saniti
 
 For our two weights <img src="/tex/4b4518f1b7f0fb1347fa21506ebafb19.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> and <img src="/tex/f7eb0e840408d84a0c156d6efb611f3e.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> we need to find the gradient of those weights with respect to the error function <img src="/tex/84df98c65d88c6adf15d4645ffa25e47.svg?invert_in_darkmode&sanitize=true" align=middle width=13.08219659999999pt height=22.465723500000017pt/>  
 
-<p align="center"><img src="/tex/4776cf9a2e35a0dbb01f3179f6584826.svg?invert_in_darkmode&sanitize=true" align=middle width=69.9966399pt height=36.2778141pt/></p>
-
-and
-
-<p align="center"><img src="/tex/dbc90fd0b761855bc73b05aace954639.svg?invert_in_darkmode&sanitize=true" align=middle width=69.9966399pt height=36.2778141pt/></p>
+<p align="center"><img src="/tex/ecdd6eea717403f28ce36c7f4feddb87.svg?invert_in_darkmode&sanitize=true" align=middle width=215.8816407pt height=36.2778141pt/></p>
 
 which we can write as
 
@@ -92,3 +88,4 @@ Once we have the gradient, we can update our weights
 <p align="center"><img src="/tex/2d0e5c9f934ff0aee4f9f86e332f358e.svg?invert_in_darkmode&sanitize=true" align=middle width=99.88377299999999pt height=12.6027363pt/></p>
 
 And we repeat this process until the error is approximately <img src="/tex/29632a9bf827ce0200454dd32fc3be82.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/>. 
+
