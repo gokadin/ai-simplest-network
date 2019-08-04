@@ -61,7 +61,7 @@ It's essentially a vector pointing to the direction of the steepest ascent of a 
 
 Example for a two variable function:
 
-$$ \nabla f(x, y) = \langle f_x, f_y \rangle = \langle \frac{\partial f(x, y)}{\partial x}, \frac{\partial f(x, y)}{\partial y} \rangle $$
+$$ \nabla f(x, y) = \langle f_x, f_y \rangle = \bigl \langle \frac{\partial f(x, y)}{\partial x}, \frac{\partial f(x, y)}{\partial y} \bigl \rangle $$
 
 ##### What is gradient descent?
 
@@ -77,11 +77,7 @@ If $\epsilon$ is too large, then we risk overshooting the function minimum.
 
 For our two weights $w_1$ and $w_2$ we need to find the gradient of those weights with respect to the error function $E$  
 
-$$ \frac{\partial E}{\partial w_1} = \delta x $$
-
-and
-
-$$ \frac{\partial E}{\partial w_2} = \delta x $$
+$$ \frac{\partial E}{\partial w_1} = \delta x_1 \quad and \quad \frac{\partial E}{\partial w_2} = \delta x_2 $$
 
 which we can write as
 
@@ -92,3 +88,4 @@ Once we have the gradient, we can update our weights
 $$ w = w - \epsilon \nabla E $$
 
 And we repeat this process until the error is approximately $0$. 
+
