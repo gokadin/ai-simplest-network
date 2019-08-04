@@ -100,14 +100,16 @@ And we repeat this process until the error is approximately $0$.
 
 ## Code example
 
-The included example teaches the following dataset representing the XOR operation to a neural network with two inputs and one output using gradient descent:
+The included example teaches the following dataset to a neural network with two inputs and one output using gradient descent:
 
 $$ x = \begin{bmatrix}
-    1.0 & 1.0 & 0.0 & 0.0 \\
-    1.0 & 0.0 & 1.0 & 0.0 \\
+    1.0 & 1.0 \\
+    1.0 & 0.0 \\
 \end{bmatrix} \quad y\prime = \begin{bmatrix}
-    0.0 & 1.0 & 1.0 & 0.0 \\
+    0.0 & 1.0 \\
 \end{bmatrix} $$
+
+Once learned, the network should output ~$0$ when given two $1$s and ~$1$ when given a $1$ and a $0$. 
 
 ## References
 

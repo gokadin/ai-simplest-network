@@ -18,25 +18,26 @@ func main() {
 	inputs := make([][]float64, 0)
     inputs = append(inputs, []float64{1.0, 1.0})
 	inputs = append(inputs, []float64{1.0, 0.0})
-	inputs = append(inputs, []float64{0.0, 1.0})
-	inputs = append(inputs, []float64{0.0, 0.0})
 	outputs := make([][]float64, 0)
-	outputs = append(inputs, []float64{0.0})
-	outputs = append(inputs, []float64{1.0})
-	outputs = append(inputs, []float64{1.0})
-	outputs = append(inputs, []float64{0.0})
+	outputs = append(outputs, []float64{0.0})
+	outputs = append(outputs, []float64{1.0})
 
-	//Run(inputs, inputLayer)
 	Learn(inputs, outputs, inputLayer, outputLayer)
+	log.Println("Results ----------------------")
+	Run(inputs, inputLayer, outputLayer)
 }
 
-func Run(inputs [][]float64, inputLayer *Layer) {
+func Run(inputs [][]float64, inputLayer *Layer, outputLayer *Layer) {
 	for _, input := range inputs {
+		inputLayer.ResetValues()
+
 		for i, node := range inputLayer.nodes {
 			node.Add(input[i])
 		}
 
 		inputLayer.Activate()
+
+		log.Println("Inputs", input[0], input[1], "produced", outputLayer.nodes[0].value)
 	}
 }
 
@@ -62,7 +63,7 @@ func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLay
 			// calculate error
 
 			delta := outputLayer.nodes[0].value - outputs[inputIndex][0]
-			err += math.Pow(delta, 2) / 2
+			err += math.Pow(delta, 2)
 
 			for _, inputNode := range inputLayer.nodes {
 				derivative := delta * inputNode.value
@@ -71,6 +72,7 @@ func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLay
 			}
 		}
 
+		err /= 2
 		log.Println("err: ", err)
 		if err < 0.001 {
 			learn = false
