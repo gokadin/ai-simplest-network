@@ -16,9 +16,15 @@ func main() {
 	inputLayer.AttachTo(outputLayer)
 
 	inputs := make([][]float64, 0)
-    inputs = append(inputs, []float64{0.5, 0.7})
+    inputs = append(inputs, []float64{1.0, 1.0})
+	inputs = append(inputs, []float64{1.0, 0.0})
+	inputs = append(inputs, []float64{0.0, 1.0})
+	inputs = append(inputs, []float64{0.0, 0.0})
 	outputs := make([][]float64, 0)
-	outputs = append(inputs, []float64{0.8})
+	outputs = append(inputs, []float64{0.0})
+	outputs = append(inputs, []float64{1.0})
+	outputs = append(inputs, []float64{1.0})
+	outputs = append(inputs, []float64{0.0})
 
 	//Run(inputs, inputLayer)
 	Learn(inputs, outputs, inputLayer, outputLayer)
@@ -40,6 +46,8 @@ func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLay
 
 	learn := true
 	for learn {
+		inputLayer.ResetDeltas()
+		err := 0.0
 		for inputIndex, input := range inputs {
 			counter++
 
@@ -54,18 +62,24 @@ func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLay
 			// calculate error
 
 			delta := outputLayer.nodes[0].value - outputs[inputIndex][0]
-			err := math.Pow(delta, 2) / 2
-			log.Println("err: ", err)
-			if err < 0.001 {
-                learn = false
-			}
-
-			// update weights
+			err += math.Pow(delta, 2) / 2
 
 			for _, inputNode := range inputLayer.nodes {
-                derivative := delta * inputNode.value
-                inputNode.outputs[0].weight -= learningRate * derivative
+				derivative := delta * inputNode.value
+				deltaWeight := -learningRate * derivative
+				inputNode.Delta += deltaWeight
 			}
+		}
+
+		log.Println("err: ", err)
+		if err < 0.001 {
+			learn = false
+		}
+
+		// update weights
+
+		for _, inputNode := range inputLayer.nodes {
+			inputNode.outputs[0].weight += inputNode.Delta
 		}
 	}
 
@@ -75,6 +89,7 @@ func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLay
 type Node struct {
 	outputs []*Connection
 	value float64
+	Delta float64
 }
 
 func NewNode() *Node {
@@ -129,6 +144,16 @@ func (l *Layer) ResetValues() {
 
 	if l.nextLayer != nil {
 		l.nextLayer.ResetValues()
+	}
+}
+
+func (l *Layer) ResetDeltas() {
+	for _, node := range l.nodes {
+		node.Delta = 0.0
+	}
+
+	if l.nextLayer != nil {
+		l.nextLayer.ResetDeltas()
 	}
 }
 
