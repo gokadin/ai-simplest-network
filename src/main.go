@@ -53,12 +53,8 @@ func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLay
 
 			// calculate error
 
-			err := math.Pow(outputLayer.nodes[0].value - outputs[inputIndex][0], 2) / 2
-			if math.IsNaN(err) {
-				log.Println("got nan:", err)
-				learn = false
-				break
-			}
+			delta := outputLayer.nodes[0].value - outputs[inputIndex][0]
+			err := math.Pow(delta, 2) / 2
 			log.Println("err: ", err)
 			if err < 0.001 {
                 learn = false
@@ -67,9 +63,8 @@ func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLay
 			// update weights
 
 			for _, inputNode := range inputLayer.nodes {
-                delta := inputNode.value * inputNode.outputs[0].weight - outputs[inputIndex][0]
-                derivative := delta * inputNode.value * learningRate
-                inputNode.outputs[0].weight -= derivative
+                derivative := delta * inputNode.value
+                inputNode.outputs[0].weight -= learningRate * derivative
 			}
 		}
 	}
@@ -145,6 +140,6 @@ type Connection struct {
 func NewConnection(node *Node) *Connection {
 	return &Connection{
 		node: node,
-		weight: rand.Float64(),
+		weight: 0.1 + rand.Float64() * (0.9 - 0.1),
 	}
 }
