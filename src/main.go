@@ -16,9 +16,9 @@ func main() {
 	inputLayer.AttachTo(outputLayer)
 
 	inputs := make([][]float64, 0)
-    inputs = append(inputs, []float64{1.0, 1.0})
+    inputs = append(inputs, []float64{0.5, 0.7})
 	outputs := make([][]float64, 0)
-	outputs = append(inputs, []float64{0.0})
+	outputs = append(inputs, []float64{0.8})
 
 	//Run(inputs, inputLayer)
 	Learn(inputs, outputs, inputLayer, outputLayer)
@@ -54,7 +54,12 @@ func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLay
 			// calculate error
 
 			err := math.Pow(outputLayer.nodes[0].value - outputs[inputIndex][0], 2) / 2
-			log.Println("error: ", err)
+			if math.IsNaN(err) {
+				log.Println("got nan:", err)
+				learn = false
+				break
+			}
+			log.Println("err: ", err)
 			if err < 0.001 {
                 learn = false
 			}
@@ -62,7 +67,7 @@ func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLay
 			// update weights
 
 			for _, inputNode := range inputLayer.nodes {
-                delta := inputNode.value * inputNode.outputs[0].weight - outputLayer.nodes[0].value
+                delta := inputNode.value * inputNode.outputs[0].weight - outputs[inputIndex][0]
                 derivative := delta * inputNode.value * learningRate
                 inputNode.outputs[0].weight -= derivative
 			}
