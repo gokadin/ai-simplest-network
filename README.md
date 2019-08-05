@@ -100,9 +100,11 @@ And we repeat this process until the error is approximately <img src="/tex/29632
 
 ## Code example
 
-The included example teaches the following dataset representing the XOR operation to a neural network with two inputs and one output using gradient descent:
+The included example teaches the following dataset to a neural network with two inputs and one output using gradient descent:
 
-<p align="center"><img src="/tex/ce72d812872ec19857b71904c3f3e5f2.svg?invert_in_darkmode&sanitize=true" align=middle width=383.295594pt height=39.452455349999994pt/></p>
+<p align="center"><img src="/tex/0cdd43e831c22b1560861b7a3e660010.svg?invert_in_darkmode&sanitize=true" align=middle width=233.52364695pt height=39.452455349999994pt/></p>
+
+Once learned, the network should output ~<img src="/tex/29632a9bf827ce0200454dd32fc3be82.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/> when given two <img src="/tex/034d0a6be0424bffe9a6e7ac9236c0f5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/>s and ~<img src="/tex/034d0a6be0424bffe9a6e7ac9236c0f5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/> when given a <img src="/tex/034d0a6be0424bffe9a6e7ac9236c0f5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/> and a <img src="/tex/29632a9bf827ce0200454dd32fc3be82.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/>. 
 
 ## References
 
