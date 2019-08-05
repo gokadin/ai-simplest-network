@@ -10,7 +10,7 @@ This is the simplest artificial neural network possible.
 ## Table of Contents
 
 - [Theory](#theory)  
-  - [What is a perceptron?](#what-is-a-perceptron)
+  - [Mimicking neurons](#mimicking-neurons)
   - [A simple example](#a-simple-example)
   - [The error](#the-error)
   - [Gradient descent](#gradient-descent)
@@ -19,19 +19,21 @@ This is the simplest artificial neural network possible.
 
 ## Theory
 
-### What is a perceptron?
+### Mimicking neurons
 
-It's the simplest conceptual representation of a neuron. 
-In essence, a perceptron has one or multiple inputs $x_i$ each having a specific weight $w_i$ and one output $y$. 
+Artificial neural networks are inspired by the brain by having interconnected artificial neurons store patterns and communicate with each other. 
+The simplest form of an artificial neuron has one or multiple inputs $x_i$ each having a specific weight $w_i$ and one output $y$. 
 
 ![alt text](readme-images/perceptron.jpg)
 
-At the simplest level, the perceptron's output is the sum of it's inputs times its weights. 
+At the simplest level, the output is the sum of its inputs times its weights. 
 $$ y = \sum_{i=1}^n w_i x_i $$
 
 ### A simple example
 
-Say we have a perceptron with two inputs $x_1 = 0.2$ and $x_2 = 0.4$ and two weights $w_1$ and $w_2$.  
+Say we have a network with two inputs $x_1 = 0.2$ and $x_2 = 0.4$ and two weights $w_1$ and $w_2$.  
+
+The idea is to adjust the weights in such a way that the given inputs produce the desired output. 
 
 Weights are normally initialized randomly since we can't know their optimal value ahead of time, however for simplicity we will initialize them both with $1.0$. 
 
