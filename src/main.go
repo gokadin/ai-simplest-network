@@ -1,50 +1,57 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"math"
 	"math/rand"
 	"time"
 )
 
+const learningRate = 0.1
+
 func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 
-	inputLayer := NewLayer(2)
-	outputLayer := NewLayer(1)
+	inputLayer, outputLayer := buildNetwork()
+	inputs, outputs := generateData()
 
+	learn(inputs, outputs, inputLayer, outputLayer)
+	test(inputs, inputLayer, outputLayer)
+}
+
+func buildNetwork() (*layer, *layer) {
+	inputLayer := newLayer(2)
+	outputLayer := newLayer(1)
+	
 	inputLayer.AttachTo(outputLayer)
+	
+	return inputLayer, outputLayer
+}
 
+func generateData() ([][]float64, [][]float64) {
 	inputs := make([][]float64, 0)
-    inputs = append(inputs, []float64{1.0, 1.0})
+	inputs = append(inputs, []float64{1.0, 1.0})
 	inputs = append(inputs, []float64{1.0, 0.0})
+	
 	outputs := make([][]float64, 0)
 	outputs = append(outputs, []float64{0.0})
 	outputs = append(outputs, []float64{1.0})
-
-	Learn(inputs, outputs, inputLayer, outputLayer)
-	log.Println("Results ----------------------")
-	Run(inputs, inputLayer, outputLayer)
+	
+	return inputs, outputs
 }
 
-func Run(inputs [][]float64, inputLayer *Layer, outputLayer *Layer) {
+func test(inputs [][]float64, inputLayer *layer, outputLayer *layer) {
+	fmt.Println()
+	fmt.Println("Results ----------------------")
+	
 	for _, input := range inputs {
-		inputLayer.ResetValues()
-
-		for i, node := range inputLayer.nodes {
-			node.Add(input[i])
-		}
-
-		inputLayer.Activate()
-
-		log.Println("Inputs", input[0], input[1], "produced", outputLayer.nodes[0].value)
+		forwardPass(inputLayer, input)
+		fmt.Println("Inputs", input[0], input[1], "produced", outputLayer.nodes[0].value)
 	}
 }
 
-func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLayer *Layer) {
+func learn(inputs [][]float64, outputs [][]float64, inputLayer *layer, outputLayer *layer) {
 	counter := 0
-	learningRate := 0.1
-
 	learn := true
 	for learn {
 		inputLayer.ResetDeltas()
@@ -53,120 +60,46 @@ func Learn(inputs [][]float64, outputs [][]float64, inputLayer *Layer, outputLay
 			counter++
 
 			// run network
+			forwardPass(inputLayer, input)
 
-			inputLayer.ResetValues()
-			for i, node := range inputLayer.nodes {
-				node.Add(input[i])
-			}
-			inputLayer.Activate()
-
-			// calculate error
-
+			// accumulate error
 			delta := outputLayer.nodes[0].value - outputs[inputIndex][0]
 			err += math.Pow(delta, 2)
 
-			for _, inputNode := range inputLayer.nodes {
-				derivative := delta * inputNode.value
-				deltaWeight := -learningRate * derivative
-				inputNode.Delta += deltaWeight
-			}
+			// accumulate gradient
+			accumulateGradient(inputLayer, delta)
 		}
 
 		err /= 2
-		log.Println("err: ", err)
+		fmt.Println("err: ", err)
 		if err < 0.001 {
 			learn = false
 		}
 
-		// update weights
-
-		for _, inputNode := range inputLayer.nodes {
-			inputNode.outputs[0].weight += inputNode.Delta
-		}
+		updateWeights(inputLayer)
 	}
 
-    log.Println("Finished after", counter, "iterations")
+    fmt.Println("Finished after", counter, "iterations")
 }
 
-type Node struct {
-	outputs []*Connection
-	value float64
-	Delta float64
-}
-
-func NewNode() *Node {
-	return &Node{}
-}
-
-func (n *Node) Add(value float64) {
-	n.value += value
-}
-
-type Layer struct {
-	nodes []*Node
-	nextLayer *Layer
-}
-
-func NewLayer(size int) *Layer {
-	nodes := make([]*Node, size)
-	for i := range nodes {
-        nodes[i] = NewNode()
-	}
-	return &Layer{
-		nodes: nodes,
+func accumulateGradient(inputLayer *layer, delta float64) {
+	for _, inputNode := range inputLayer.nodes {
+		derivative := delta * inputNode.value
+		deltaWeight := derivative
+		inputNode.Delta += deltaWeight
 	}
 }
 
-func (l *Layer) AttachTo(nextLayer *Layer) {
-	l.nextLayer = nextLayer
-
-	for _, node := range l.nodes {
-		for _, nextNode := range nextLayer.nodes {
-			node.outputs = append(node.outputs, NewConnection(nextNode))
-		}
+func forwardPass(inputLayer *layer, input []float64) {
+	inputLayer.ResetValues()
+	for i, node := range inputLayer.nodes {
+		node.add(input[i])
 	}
+	inputLayer.Activate()
 }
 
-func (l *Layer) Activate() {
-    for _, node := range l.nodes {
-		for _, connection := range node.outputs {
-			connection.node.Add(node.value * connection.weight)
-		}
-	}
-
-    if l.nextLayer != nil {
-		l.nextLayer.Activate()
-	}
-}
-
-func (l *Layer) ResetValues() {
-	for _, node := range l.nodes {
-		node.value = 0.0
-	}
-
-	if l.nextLayer != nil {
-		l.nextLayer.ResetValues()
-	}
-}
-
-func (l *Layer) ResetDeltas() {
-	for _, node := range l.nodes {
-		node.Delta = 0.0
-	}
-
-	if l.nextLayer != nil {
-		l.nextLayer.ResetDeltas()
-	}
-}
-
-type Connection struct {
-	node *Node
-	weight float64
-}
-
-func NewConnection(node *Node) *Connection {
-	return &Connection{
-		node: node,
-		weight: 0.1 + rand.Float64() * (0.9 - 0.1),
+func updateWeights(inputLayer *layer) {
+	for _, inputNode := range inputLayer.nodes {
+		inputNode.outputs[0].weight -= learningRate * inputNode.Delta
 	}
 }
