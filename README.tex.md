@@ -4,7 +4,7 @@ This is the simplest artificial neural network possible explained and demonstrat
 
 ## This is part 1 of a series of github repos on neural networks
 
-- part 1 - linear associative networks (**you are here**)
+- part 1 - simplest network (**you are here**)
 - [part 2 - backpropagation](https://github.com/gokadin/ai-backpropagation)
 
 ## Table of Contents
