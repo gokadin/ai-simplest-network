@@ -1,6 +1,6 @@
-# Linear associative networks
+# Simplest artificial neural network
 
-This is the simplest artificial neural network possible. 
+This is the simplest artificial neural network possible explained and demonstrated. 
 
 ## This is part 1 of a series of github repos on neural networks
 
