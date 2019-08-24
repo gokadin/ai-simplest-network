@@ -47,17 +47,17 @@ $$ y = x_1 w_1 + x_2 w_2 = 0.2 * 1.0 + 0.4 * 1.0 = 0.6$$
 ### The error
 
 If the output $y$ doesn't match the expected result, then we have an error.  
-For example, if we wanted to get an expected output of $y\prime = 0.5$ then we would have a delta of 
+For example, if we wanted to get an expected output of $y\prime = 0.5$ then we would have a difference of 
 
-$$ \delta = y - y\prime = 0.6 - 0.5 = 0.1$$
+$$ y - y\prime = 0.6 - 0.5 = 0.1$$
 
 The most common way to measure the error is to use the square difference:
 
-$$ E = \frac{1}{2} (y - y\prime)^2 = \frac{1}{2} \delta^2 $$
+$$ E = \frac{1}{2} (y - y\prime)^2 $$
 
-If we would have multiple sets of inputs and multiple sets of expected outputs, then the error becomes the sum of each set. 
+If we had multiple associations of inputs and expected outputs, then the error becomes the sum of each association. 
 
-$$ E = \frac{1}{2} \sum_{i=1}^n (y_i - y_i\prime)^2 = \frac{1}{2} \sum_{i=1}^n \delta_i^2 $$
+$$ E = \frac{1}{2} \sum_{i=1}^n (y_i - y_i\prime)^2 $$
 
 To rectify the error, we would need to adjust the weights in a way that the actual output matches the expected output. In our example, lowering $w_1$ from $1.0$ to $0.5$ would do the trick, since 
 $$ y = y\prime = 0.2 * 0.5 + 0.4 * 1.0 = 0.5 $$
@@ -66,7 +66,7 @@ However, in order to adjust the weights of our neural networks for many differen
 
 ### Gradient descent
 
-The idea is to use the error in order to find how to adjust each weight so that the error is minimized.  
+The idea is to use the error in order to adjust each weight so that the error is minimized.  
 
 ##### What is a gradient?
 
@@ -78,11 +78,11 @@ $$ \nabla f(x, y) = \langle f_x, f_y \rangle = \bigl \langle \frac{\partial f(x,
 
 ##### What is gradient descent?
 
-The *descent* part simply means using the gradient to find the direction of steepest ascent of our function and then going in the opposite direction by a *small* amount many times to find the function *minimum*.  
+The *descent* part simply means using the gradient to find the direction of steepest ascent of our function and then going in the opposite direction by a *small* amount many times to find the function *global minimum*.  
 
 We use a constant called the **learning rate**, denoted with $\epsilon$ to define how small of a step to take in that direction.  
 
-If $\epsilon$ is too large, then we risk overshooting the function minimum. 
+If $\epsilon$ is too large, then we risk overshooting the function minimum, but if it's too low then the network will take longer to learn and we risk getting stuck in a local minimum. 
 
 ![alt text](readme-images/gradient-descent.jpg)
 
@@ -90,17 +90,21 @@ If $\epsilon$ is too large, then we risk overshooting the function minimum.
 
 For our two weights $w_1$ and $w_2$ we need to find the gradient of those weights with respect to the error function $E$  
 
-$$ \frac{\partial E}{\partial w_1} = \delta x_1 \quad and \quad \frac{\partial E}{\partial w_2} = \delta x_2 $$
-
-which we can write as a vector
-
 $$ \nabla_w E = \bigl \langle \frac{\partial E}{\partial w_1}, \frac{\partial E}{\partial w_2} \bigl \rangle $$
+
+For both $w_1$ and $w_2$, we can find the gradient by using the chain rule
+
+$$ \frac{\partial E}{\partial w_i} = \frac{\partial E}{\partial y}\frac{\partial y}{\partial w_i} = \frac{\partial}{\partial y}\left(\frac{1}{2}(y - y\prime)^2\right) \frac{\partial}{\partial w_i}\left(x_iw_i\right) = (y - y\prime) \frac{\partial}{\partial y}\left(y - y\prime\right) x_i = (y - y\prime)x_i $$
+
+From now on we will denote the $\frac{\partial E}{\partial y} = y - y\prime$ as the $\delta$ term. 
 
 Once we have the gradient, we can update our weights
 
-$$ w = w - \epsilon \nabla E $$
+$$ w_1 = w_1 - \epsilon \nabla_{w_1}E = w_1 -\epsilon \delta x_1 $$
 
-And we repeat this process until the error is approximately $0$. 
+$$ w_2 = w_2 - \epsilon \nabla_{w_2}E = w_2 -\epsilon \delta x_2 $$
+
+And we repeat this process until the error is approximately 0​. 
 
 ## Code example
 
@@ -113,7 +117,7 @@ $$ x = \begin{bmatrix}
     0.0 & 1.0 \\
 \end{bmatrix} $$
 
-Once learned, the network should output ~$0$ when given two $1$s and ~$1$ when given a $1$ and a $0$. 
+Once learned, the network should output ~0​ when given two $1$s and ~$1$ when given a $1$ and a $0$. 
 
 ## References
 
