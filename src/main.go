@@ -23,7 +23,7 @@ func buildNetwork() (*layer, *layer) {
 	inputLayer := newLayer(2)
 	outputLayer := newLayer(1)
 	
-	inputLayer.AttachTo(outputLayer)
+	inputLayer.attachTo(outputLayer)
 	
 	return inputLayer, outputLayer
 }
@@ -46,34 +46,36 @@ func test(inputs [][]float64, inputLayer *layer, outputLayer *layer) {
 	
 	for _, input := range inputs {
 		forwardPass(inputLayer, input)
-		fmt.Println("Inputs", input[0], input[1], "produced", outputLayer.nodes[0].value)
+
+		outputs := make([]float64, len(outputLayer.nodes))
+		for outputNodeIndex, outputNode := range outputLayer.nodes {
+            outputs[outputNodeIndex] = outputNode.value
+		}
+        fmt.Println(input, "=>", outputs)
 	}
 }
 
 func learn(inputs [][]float64, outputs [][]float64, inputLayer *layer, outputLayer *layer) {
 	counter := 0
-	learn := true
-	for learn {
-		inputLayer.ResetDeltas()
+	for {
+		inputLayer.resetDeltas()
 		err := 0.0
 		for inputIndex, input := range inputs {
 			counter++
 
-			// run network
 			forwardPass(inputLayer, input)
 
-			// accumulate error
-			delta := outputLayer.nodes[0].value - outputs[inputIndex][0]
-			err += math.Pow(delta, 2)
+            accumulateDeltas(outputLayer, outputs[inputIndex])
 
-			// accumulate gradient
-			accumulateGradient(inputLayer, delta)
+			accumulateGradients(inputLayer)
+
+			err += math.Pow(accumulateError(outputLayer, outputs[inputIndex]), 2)
 		}
 
 		err /= 2
 		fmt.Println("err: ", err)
-		if err < 0.001 {
-			learn = false
+		if err < 0.0001 {
+            break
 		}
 
 		updateWeights(inputLayer)
@@ -82,24 +84,41 @@ func learn(inputs [][]float64, outputs [][]float64, inputLayer *layer, outputLay
     fmt.Println("Finished after", counter, "iterations")
 }
 
-func accumulateGradient(inputLayer *layer, delta float64) {
-	for _, inputNode := range inputLayer.nodes {
-		derivative := delta * inputNode.value
-		deltaWeight := derivative
-		inputNode.Delta += deltaWeight
+func accumulateDeltas(outputLayer *layer, expectedOutput []float64) {
+	for nodeIndex, outputNode := range outputLayer.nodes {
+		outputNode.delta += outputNode.value - expectedOutput[nodeIndex]
 	}
 }
 
-func forwardPass(inputLayer *layer, input []float64) {
-	inputLayer.ResetValues()
-	for i, node := range inputLayer.nodes {
-		node.add(input[i])
+func accumulateGradients(inputLayer *layer) {
+	for _, inputNode := range inputLayer.nodes {
+		for _, connection := range inputNode.connections {
+            connection.gradient += connection.node.delta * inputNode.value
+		}
 	}
-	inputLayer.Activate()
+}
+
+func accumulateError(outputLayer *layer, expectedOutput []float64) float64 {
+	err := 0.0
+	for nodeIndex, outputNode := range outputLayer.nodes {
+        err += outputNode.value - expectedOutput[nodeIndex]
+	}
+	return err
+}
+
+func forwardPass(inputLayer *layer, input []float64) {
+	inputLayer.resetValues()
+	for i, node := range inputLayer.nodes {
+		node.value += input[i]
+	}
+	inputLayer.activate()
 }
 
 func updateWeights(inputLayer *layer) {
 	for _, inputNode := range inputLayer.nodes {
-		inputNode.outputs[0].weight -= learningRate * inputNode.Delta
+		for _, connection := range inputNode.connections {
+			connection.weight -= learningRate * connection.gradient
+			connection.gradient = 0.0
+		}
 	}
 }

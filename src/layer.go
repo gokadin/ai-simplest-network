@@ -15,45 +15,45 @@ func newLayer(size int) *layer {
 	}
 }
 
-func (l *layer) AttachTo(nextLayer *layer) {
+func (l *layer) attachTo(nextLayer *layer) {
 	l.nextLayer = nextLayer
 
 	for _, node := range l.nodes {
 		for _, nextNode := range nextLayer.nodes {
-			node.outputs = append(node.outputs, newConnection(nextNode))
+			node.connections = append(node.connections, newConnection(nextNode))
 		}
 	}
 }
 
-func (l *layer) Activate() {
+func (l *layer) activate() {
 	for _, node := range l.nodes {
-		for _, connection := range node.outputs {
-			connection.node.add(node.value * connection.weight)
+		for _, connection := range node.connections {
+			connection.node.value += node.value * connection.weight
 		}
 	}
 
 	if l.nextLayer != nil {
-		l.nextLayer.Activate()
+		l.nextLayer.activate()
 	}
 }
 
-func (l *layer) ResetValues() {
+func (l *layer) resetValues() {
 	for _, node := range l.nodes {
 		node.value = 0.0
 	}
 
 	if l.nextLayer != nil {
-		l.nextLayer.ResetValues()
+		l.nextLayer.resetValues()
 	}
 }
 
-func (l *layer) ResetDeltas() {
+func (l *layer) resetDeltas() {
 	for _, node := range l.nodes {
-		node.Delta = 0.0
+		node.delta = 0.0
 	}
 
 	if l.nextLayer != nil {
-		l.nextLayer.ResetDeltas()
+		l.nextLayer.resetDeltas()
 	}
 }
 
