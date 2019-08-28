@@ -57,7 +57,7 @@ $$ E = \frac{1}{2} (y - y\prime)^2 $$
 
 If we had multiple associations of inputs and expected outputs, then the error becomes the sum of each association. 
 
-$$ E = \frac{1}{2} \sum_{i=1}^n (y_i - y_i\prime)^2 $$
+$$ E = \frac{1}{2n} \sum_{i=1}^n (y_i - y_i\prime)^2 $$
 
 To rectify the error, we would need to adjust the weights in a way that the actual output matches the expected output. In our example, lowering $w_1$ from $1.0$ to $0.5$ would do the trick, since 
 $$ y = y\prime = 0.2 * 0.5 + 0.4 * 1.0 = 0.5 $$
