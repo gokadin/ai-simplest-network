@@ -58,21 +58,16 @@ func test(inputs [][]float64, inputLayer *layer, outputLayer *layer) {
 func learn(inputs [][]float64, outputs [][]float64, inputLayer *layer, outputLayer *layer) {
 	counter := 0
 	for {
-		inputLayer.resetDeltas()
+		counter++
 		err := 0.0
 		for inputIndex, input := range inputs {
-			counter++
-
 			forwardPass(inputLayer, input)
-
-            accumulateDeltas(outputLayer, outputs[inputIndex])
-
+            calculateDeltas(outputLayer, outputs[inputIndex])
 			accumulateGradients(inputLayer)
-
 			err += math.Pow(accumulateError(outputLayer, outputs[inputIndex]), 2)
 		}
 
-		err /= 2
+		err /= 2 * float64(len(outputLayer.nodes))
 		fmt.Println("err: ", err)
 		if err < 0.0001 {
             break
@@ -84,9 +79,9 @@ func learn(inputs [][]float64, outputs [][]float64, inputLayer *layer, outputLay
     fmt.Println("Finished after", counter, "iterations")
 }
 
-func accumulateDeltas(outputLayer *layer, expectedOutput []float64) {
+func calculateDeltas(outputLayer *layer, expectedOutput []float64) {
 	for nodeIndex, outputNode := range outputLayer.nodes {
-		outputNode.delta += outputNode.value - expectedOutput[nodeIndex]
+		outputNode.delta = outputNode.value - expectedOutput[nodeIndex]
 	}
 }
 

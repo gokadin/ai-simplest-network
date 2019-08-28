@@ -46,14 +46,3 @@ func (l *layer) resetValues() {
 		l.nextLayer.resetValues()
 	}
 }
-
-func (l *layer) resetDeltas() {
-	for _, node := range l.nodes {
-		node.delta = 0.0
-	}
-
-	if l.nextLayer != nil {
-		l.nextLayer.resetDeltas()
-	}
-}
-
