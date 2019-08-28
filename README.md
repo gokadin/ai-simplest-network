@@ -57,7 +57,7 @@ The most common way to measure the error is to use the square difference:
 
 If we had multiple associations of inputs and expected outputs, then the error becomes the sum of each association. 
 
-<p align="center"><img src="/tex/fafaf847c9561ad1dc74e0260f6d1291.svg?invert_in_darkmode&sanitize=true" align=middle width=144.6623739pt height=44.89738935pt/></p>
+<p align="center"><img src="/tex/56def9cd4b32408db97f6999c6ba45ca.svg?invert_in_darkmode&sanitize=true" align=middle width=154.52925015pt height=44.89738935pt/></p>
 
 To rectify the error, we would need to adjust the weights in a way that the actual output matches the expected output. In our example, lowering <img src="/tex/4b4518f1b7f0fb1347fa21506ebafb19.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> from <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> to <img src="/tex/cde2d598001a947a6afd044a43d15629.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> would do the trick, since 
 <p align="center"><img src="/tex/e6f831d1a270623d0d7f7ed67ad50360.svg?invert_in_darkmode&sanitize=true" align=middle width=243.73618499999998pt height=13.789957499999998pt/></p>
