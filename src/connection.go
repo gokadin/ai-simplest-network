@@ -11,6 +11,6 @@ type connection struct {
 func newConnection(node *node) *connection {
 	return &connection{
 		node: node,
-		weight: 0.1 + rand.Float64() * (0.9 - 0.1),
+		weight: rand.Float64(),
 	}
 }

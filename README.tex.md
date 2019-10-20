@@ -7,7 +7,6 @@ This is the simplest artificial neural network possible explained and demonstrat
 - part 1 - simplest network (**you are here**)
 - [part 2 - backpropagation](https://github.com/gokadin/ai-backpropagation)
 - [part 3 - backpropagation-continued](https://github.com/gokadin/ai-backpropagation-continued)
-- [part 4 - hopfield networks](https://github.com/gokadin/ai-hopfield-networks)
 
 ## Table of Contents
 
