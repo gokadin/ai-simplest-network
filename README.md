@@ -2,6 +2,8 @@
 
 This is the simplest artificial neural network possible explained and demonstrated. 
 
+Try it online: [![Run on Repl.it](https://repl.it/badge/github/gokadin/ai-simplest-network)](https://repl.it/github/gokadin/ai-simplest-network)
+
 ## This is part 1 of a series of github repos on neural networks
 
 - part 1 - simplest network (**you are here**)
