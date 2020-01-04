@@ -2,8 +2,6 @@
 
 This is the simplest artificial neural network possible explained and demonstrated. 
 
-Try it online: [![Run on Repl.it](https://repl.it/badge/github/gokadin/ai-simplest-network)](https://repl.it/github/gokadin/ai-simplest-network)
-
 ## This is part 1 of a series of github repos on neural networks
 
 - part 1 - simplest network (**you are here**)
@@ -105,7 +103,7 @@ Once we have the gradient, we can update our weights
 
 <p align="center"><img src="/tex/223d39de0113b6136f26962ed907c8aa.svg?invert_in_darkmode&sanitize=true" align=middle width=222.19498950000002pt height=15.52509255pt/></p>
 
-And we repeat this process until the error is approximately 0​. 
+And we repeat this process until the error is minimized within a chosen threshold. 
 
 ## Code example
 
@@ -113,8 +111,22 @@ The included example teaches the following dataset to a neural network with two 
 
 <p align="center"><img src="/tex/0cdd43e831c22b1560861b7a3e660010.svg?invert_in_darkmode&sanitize=true" align=middle width=233.52364695pt height=39.452455349999994pt/></p>
 
-Once learned, the network should output ~0​ when given two <img src="/tex/034d0a6be0424bffe9a6e7ac9236c0f5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/>s and ~<img src="/tex/034d0a6be0424bffe9a6e7ac9236c0f5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/> when given a <img src="/tex/034d0a6be0424bffe9a6e7ac9236c0f5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/> and a <img src="/tex/29632a9bf827ce0200454dd32fc3be82.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/>. 
+Once learned, the network should output ~0 when given two <img src="/tex/034d0a6be0424bffe9a6e7ac9236c0f5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/>s and ~<img src="/tex/034d0a6be0424bffe9a6e7ac9236c0f5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/> when given a <img src="/tex/034d0a6be0424bffe9a6e7ac9236c0f5.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/> and a <img src="/tex/29632a9bf827ce0200454dd32fc3be82.svg?invert_in_darkmode&sanitize=true" align=middle width=8.219209349999991pt height=21.18721440000001pt/>. 
+
+### How to run
+
+#### Online on repl.it
+
+[![Run on Repl.it](https://repl.it/badge/github/gokadin/ai-simplest-network)](https://repl.it/github/gokadin/ai-simplest-network)
+
+#### Docker
+
+``` bash
+docker build -t simplest-network .
+docker run --rm simplest-network
+```
 
 ## References
 
-- Artificial intelligence engines by James V Stone (2019)
+1. Artificial intelligence engines by James V Stone (2019)
+2. Complete guide on deep learning: http://neuralnetworksanddeeplearning.com/chap2.html

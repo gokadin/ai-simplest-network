@@ -103,7 +103,7 @@ $$ w_1 = w_1 - \epsilon \nabla_{w_1}E = w_1 -\epsilon \delta x_1 $$
 
 $$ w_2 = w_2 - \epsilon \nabla_{w_2}E = w_2 -\epsilon \delta x_2 $$
 
-And we repeat this process until the error is approximately 0​. 
+And we repeat this process until the error is minimized within a chosen threshold. 
 
 ## Code example
 
@@ -116,8 +116,22 @@ $$ x = \begin{bmatrix}
     0.0 & 1.0 \\
 \end{bmatrix} $$
 
-Once learned, the network should output ~0​ when given two $1$s and ~$1$ when given a $1$ and a $0$. 
+Once learned, the network should output ~0 when given two $1$s and ~$1$ when given a $1$ and a $0$. 
+
+### How to run
+
+#### Online on repl.it
+
+[![Run on Repl.it](https://repl.it/badge/github/gokadin/ai-simplest-network)](https://repl.it/github/gokadin/ai-simplest-network)
+
+#### Docker
+
+``` bash
+docker build -t simplest-network .
+docker run --rm simplest-network
+```
 
 ## References
 
-- Artificial intelligence engines by James V Stone (2019)
+1. Artificial intelligence engines by James V Stone (2019)
+2. Complete guide on deep learning: http://neuralnetworksanddeeplearning.com/chap2.html
