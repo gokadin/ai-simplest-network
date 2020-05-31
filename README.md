@@ -56,11 +56,11 @@ One common way to measure the error (also referred to as the cost function) is t
 
 <p align="center"><img src="/tex/f9a1a3500d0047642b9e0aa44e315d61.svg?invert_in_darkmode&sanitize=true" align=middle width=101.17868145pt height=32.990165999999995pt/></p>
 
-If we had multiple associations of inputs and expected outputs, then the error becomes the sum of each association. 
+If we had multiple associations of inputs and target values, then the error becomes the average sum of each association. 
 
 <p align="center"><img src="/tex/0b27b4f92bb0aa649d3980861c413f8b.svg?invert_in_darkmode&sanitize=true" align=middle width=147.88537499999998pt height=44.89738935pt/></p>
 
-We use the mean squared error to measure how far away the results are from our desired target. The squaring removes negative signs and gives more weight to bigger differences in result. 
+We use the mean squared error to measure how far away the results are from our desired target. The squaring removes negative signs and gives more weight to bigger differences between output and target. 
 
 To rectify the error, we would need to adjust the weights in a way that the output matches our target. In our example, lowering <img src="/tex/4b4518f1b7f0fb1347fa21506ebafb19.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> from <img src="/tex/f58ed17486d1735419372f2b7d091779.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> to <img src="/tex/cde2d598001a947a6afd044a43d15629.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> would do the trick, since 
 <p align="center"><img src="/tex/385570808d7e0408dd491b7647e205de.svg?invert_in_darkmode&sanitize=true" align=middle width=236.5025355pt height=13.789957499999998pt/></p>
@@ -69,7 +69,7 @@ However, in order to adjust the weights of our neural networks for many differen
 
 ### Gradient descent
 
-The idea is to use the error to infer how each weight should be adjusted so that the error is minimized, but first, we need to learn about gradients. 
+The idea is to use the error to understand how each weight should be adjusted so that the error is minimized, but first, we need to learn about gradients. 
 
 ##### What is a gradient?
 
@@ -102,17 +102,17 @@ For our two weights <img src="/tex/4b4518f1b7f0fb1347fa21506ebafb19.svg?invert_i
 
 For both <img src="/tex/4b4518f1b7f0fb1347fa21506ebafb19.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/> and <img src="/tex/f7eb0e840408d84a0c156d6efb611f3e.svg?invert_in_darkmode&sanitize=true" align=middle width=18.32105549999999pt height=14.15524440000002pt/>, we can find the gradient by using the chain rule
 
-<p align="center"><img src="/tex/f6a2007b7b259d2545c6540e17762aea.svg?invert_in_darkmode&sanitize=true" align=middle width=577.6435384499999pt height=39.452455349999994pt/></p>
+<p align="center"><img src="/tex/8d7dec910e58764e57aa27f328a7396c.svg?invert_in_darkmode&sanitize=true" align=middle width=570.4098938999999pt height=39.452455349999994pt/></p>
 
 From now on we will denote the <img src="/tex/053259646a84530b56faa65084783f24.svg?invert_in_darkmode&sanitize=true" align=middle width=76.5775791pt height=28.92634470000001pt/> as the <img src="/tex/38f1e2a089e53d5c990a82f284948953.svg?invert_in_darkmode&sanitize=true" align=middle width=7.928075099999989pt height=22.831056599999986pt/> term for simplicity. 
 
-Once we have the gradient, we can update our weights
+Once we have the gradient, we can update our weights by subtracting the calculated gradient times the learning rate. 
 
 <p align="center"><img src="/tex/f46613c78403dce8eed0b6093ff36d28.svg?invert_in_darkmode&sanitize=true" align=middle width=222.19498950000002pt height=15.52509255pt/></p>
 
 <p align="center"><img src="/tex/223d39de0113b6136f26962ed907c8aa.svg?invert_in_darkmode&sanitize=true" align=middle width=222.19498950000002pt height=15.52509255pt/></p>
 
-And we repeat this process until the error is minimized and is close enough to zero for our comfort. 
+And we repeat this process until the error is minimized and is close enough to zero. 
 
 ## Code example
 
