@@ -56,11 +56,11 @@ One common way to measure the error (also referred to as the cost function) is t
 
 $$ E = \frac{1}{2} (y - t)^2 $$
 
-If we had multiple associations of inputs and expected outputs, then the error becomes the sum of each association. 
+If we had multiple associations of inputs and target values, then the error becomes the average sum of each association. 
 
 $$ E = \frac{1}{2n} \sum_{i=1}^n (y_i - t_i)^2 $$
 
-We use the mean squared error to measure how far away the results are from our desired target. The squaring removes negative signs and gives more weight to bigger differences in result. 
+We use the mean squared error to measure how far away the results are from our desired target. The squaring removes negative signs and gives more weight to bigger differences between output and target. 
 
 To rectify the error, we would need to adjust the weights in a way that the output matches our target. In our example, lowering $w_1$ from $1.0$ to $0.5$ would do the trick, since 
 $$ y = t = 0.2 * 0.5 + 0.4 * 1.0 = 0.5 $$
@@ -69,7 +69,7 @@ However, in order to adjust the weights of our neural networks for many differen
 
 ### Gradient descent
 
-The idea is to use the error to infer how each weight should be adjusted so that the error is minimized, but first, we need to learn about gradients. 
+The idea is to use the error to understand how each weight should be adjusted so that the error is minimized, but first, we need to learn about gradients. 
 
 ##### What is a gradient?
 
@@ -102,17 +102,17 @@ $$ \nabla_w E = \bigl \langle \frac{\partial E}{\partial w_1}, \frac{\partial E}
 
 For both $w_1$ and $w_2$, we can find the gradient by using the chain rule
 
-$$ \frac{\partial E}{\partial w_i} = \frac{\partial E}{\partial y}\frac{\partial y}{\partial w_i} = \frac{\partial}{\partial y}\left(\frac{1}{2}(y - y\prime)^2\right) \frac{\partial}{\partial w_i}\left(x_iw_i\right) = (y - t) \frac{\partial}{\partial y}\left(y - t\right) x_i = (y - t)x_i $$
+$$ \frac{\partial E}{\partial w_i} = \frac{\partial E}{\partial y}\frac{\partial y}{\partial w_i} = \frac{\partial}{\partial y}\left(\frac{1}{2}(y - t)^2\right) \frac{\partial}{\partial w_i}\left(x_iw_i\right) = (y - t) \frac{\partial}{\partial y}\left(y - t\right) x_i = (y - t)x_i $$
 
 From now on we will denote the $\frac{\partial E}{\partial y} = y - t$ as the $\delta$ term for simplicity. 
 
-Once we have the gradient, we can update our weights
+Once we have the gradient, we can update our weights by subtracting the calculated gradient times the learning rate. 
 
 $$ w_1 = w_1 - \epsilon \nabla_{w_1}E = w_1 -\epsilon \delta x_1 $$
 
 $$ w_2 = w_2 - \epsilon \nabla_{w_2}E = w_2 -\epsilon \delta x_2 $$
 
-And we repeat this process until the error is minimized and is close enough to zero for our comfort. 
+And we repeat this process until the error is minimized and is close enough to zero. 
 
 ## Code example
 
